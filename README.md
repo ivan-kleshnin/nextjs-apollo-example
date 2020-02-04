@@ -16,8 +16,6 @@ https://www.apollographql.com/docs/react/api/react-ssr/#getdatafromtree
 
 ## How to use
 
-### Using `create-next-app`
-
 1. Fetch repo
 
 2. Install deps
