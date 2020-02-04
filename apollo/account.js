@@ -54,7 +54,6 @@ export let typeDefs = gql`
 export let resolvers = {
   Query: {
     async me(_, args, {visitor}) {
-      console.log("visitor:", visitor)
       return visitor
     },
   },

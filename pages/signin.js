@@ -62,7 +62,6 @@ function SignIn() {
         await router.push("/")
       }
     } catch (err) {
-      console.log(err)
       setErrorMsg(getErrorMessage(err))
     }
   }
