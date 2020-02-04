@@ -18,6 +18,12 @@ https://www.apollographql.com/docs/react/api/react-ssr/#getdatafromtree
 
 1. Fetch repo
 
+```
+project-folder $ git init
+project-folder $ git remote add origin git@github.com:ivan-kleshnin/nextjs-apollo-example.git
+project-folder $ git pull origin master
+```
+
 2. Install deps
 
 ```
@@ -27,5 +33,5 @@ project-folder $ yarn install
 3. Run
 
 ```
-project-folder $ $ yarn dev
+project-folder $ yarn dev
 ```
