@@ -1,5 +1,8 @@
 # Apollo Server and Client Auth Example
 
+**Note**: this code is a revision of [api-routes-apollo-server-and-client-auth](https://github.com/zeit/next.js/tree/canary/examples/api-routes-apollo-server-and-client-auth) original example.
+My goal is to make it more production-like.
+
 [Apollo](https://www.apollographql.com/client/) is a GraphQL client that allows you to easily query the exact data you need from a GraphQL server. In addition to fetching and mutating data, Apollo analyzes your queries and their results to construct a client-side cache of your data, which is kept up to date as further queries and mutations are run, fetching more results from the server.
 
 In this simple example, we integrate Apollo seamlessly with Next by wrapping our _pages/\_app.js_ inside a [higher-order component (HOC)](https://facebook.github.io/react/docs/higher-order-components.html). Using the HOC pattern we're able to pass down a central store of query result data created by Apollo into our React component hierarchy defined inside each page of our Next application.
@@ -47,9 +50,3 @@ yarn dev
 ```
 
 > If you have issues installing `bcrypt`, follow this instructions: https://github.com/kelektiv/node.bcrypt.js/wiki/Installation-Instructions
-
-Deploy it to the cloud with [now](https://zeit.co/now) ([download](https://zeit.co/download)):
-
-```bash
-now
-```
