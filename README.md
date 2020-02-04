@@ -18,31 +18,16 @@ https://www.apollographql.com/docs/react/api/react-ssr/#getdatafromtree
 
 ### Using `create-next-app`
 
-Execute [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app) with [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) or [npx](https://github.com/zkat/npx#readme) to bootstrap the example:
+1. Fetch repo
 
-```bash
-npx create-next-app --example api-routes-apollo-server-and-client-auth api-routes-apollo-server-and-client-auth-app
-# or
-yarn create next-app --example api-routes-apollo-server-and-client-auth api-routes-apollo-server-and-client-auth-app
+2. Install deps
+
+```
+project-folder $ yarn install
 ```
 
-### Download manually
+3. Run
 
-Download the example:
-
-```bash
-curl https://codeload.github.com/zeit/next.js/tar.gz/canary | tar -xz --strip=2 next.js-canary/examples/api-routes-apollo-server-and-client-auth
-cd api-routes-apollo-server-and-client-auth
 ```
-
-Install it and run:
-
-```bash
-npm install
-npm run dev
-# or
-yarn
-yarn dev
+project-folder $ $ yarn dev
 ```
-
-> If you have issues installing `bcrypt`, follow this instructions: https://github.com/kelektiv/node.bcrypt.js/wiki/Installation-Instructions
