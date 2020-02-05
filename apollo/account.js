@@ -1,7 +1,7 @@
-import {AuthenticationError, UserInputError} from "apollo-server-micro"
+import {UserInputError} from "apollo-server-micro"
 import cookie from "cookie"
 import gql from "graphql-tag"
-import jwt from "jsonwebtoken"
+import JWT from "jsonwebtoken"
 import UUID from "uuid/v4"
 import * as DB from "../db"
 import {fetchJSON} from "../lib"
@@ -122,12 +122,11 @@ export let resolvers = {
       }
 
       // Step 6: authenticate user
-      let token = account.id
-      // let token = jwt.sign(
-      //   {email: account.email, id: account.id, time: new Date()},
-      //   process.env.JWT_SECRET,
-      //   {expiresIn: "6h"}
-      // )
+      let token = JWT.sign(
+        {id: account.id},
+        process.env.JWT_SECRET,
+        {expiresIn: "6h"}
+      )
 
       res.setHeader(
         "Set-Cookie",
@@ -160,17 +159,17 @@ export let resolvers = {
       let account = db.accounts.find(account => account.email == input.email)
 
       if (account && validPassword(account, args.input.password)) {
-        let token = account.id /*jwt.sign(
-          {email: account.email, id: account.id, time: new Date()},
+        let token = JWT.sign(
+          {id: account.id},
           process.env.JWT_SECRET,
-          {expiresIn: "6h"}
-        )*/
+          {expiresIn: "5m"}, // "7d"} // 7 days
+        )
 
         res.setHeader(
           "Set-Cookie",
           cookie.serialize("token", token, {
             httpOnly: true,
-            maxAge: 6 * 60 * 60,
+            maxAge: 7 * 24 * 60 * 60, // 7 days
             path: "/",
             sameSite: "lax",
             secure: process.env.NODE_ENV == "production",

@@ -18,11 +18,9 @@ let globalApolloClient = null
 export function withApollo(PageComponent, {ssr = true} = {}) {
   let WithApollo = ({apolloClient, apolloState, ...pageProps}) => {
     let client = apolloClient || initApolloClient(undefined, apolloState)
-    return (
-      <ApolloProvider client={client}>
-        <PageComponent {...pageProps} />
-      </ApolloProvider>
-    )
+    return <ApolloProvider client={client}>
+      <PageComponent {...pageProps} />
+    </ApolloProvider>
   }
 
   // Set the correct displayName in development
@@ -148,7 +146,22 @@ function createIsomorphLink(ctx) {
   return new HttpLink({
     uri: "http://localhost:3000/api/graphql", // TODO more flexible URL, just "/api/graphql" causes problems
     credentials: "same-origin",
-    fetch: fetch,
+    fetch: fetchWithCredentials(ctx.req?.headers?.cookie),
   })
   // }
+}
+
+function fetchWithCredentials(cookie) {
+  return function (url, options) {
+    return fetch(url, {
+      ...options,
+      credentials: "include", // "same-origin" TODO which one?
+      headers: {
+        ...options.headers,
+        ... typeof window != "undefined" ?  {} : {
+          "Cookie": cookie,
+        }
+      }
+    })
+  }
 }

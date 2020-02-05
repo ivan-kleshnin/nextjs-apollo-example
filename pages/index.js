@@ -3,6 +3,7 @@ import gql from "graphql-tag"
 import Link from "next/link"
 import {useRouter} from "next/router"
 import {withApollo} from "../apollo/client"
+import {getErrorMessage} from "../lib"
 
 let MeQuery = gql`
   query MeQuery {
@@ -14,12 +15,16 @@ let MeQuery = gql`
 
 let Index = () => {
   let router = useRouter()
-  let {data, loading} = useQuery(MeQuery, {
+  let {data, error, loading} = useQuery(MeQuery, {
     // fetchPolicy: "network-only"
   })
 
   if (loading) {
     return <div>Loading...</div>
+  }
+
+  if (error) {
+    return <div>{getErrorMessage(error)}</div>
   }
 
   if (!data) {
