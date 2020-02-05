@@ -16,6 +16,8 @@ https://www.apollographql.com/docs/react/api/react-ssr/#getdatafromtree
 
 ## How to use
 
+0. Rename `.env.default` to `.env`. Set the appropriate credentials.
+
 1. Fetch repo
 
 ```
