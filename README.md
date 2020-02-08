@@ -1,4 +1,6 @@
-# Apollo Server and Client Auth Example
+# NextJS with Apollo Stack
+
+### Ultimate Example: SSR + Fullstack Auth + ...
 
 **Note**: this code is an evolution of [api-routes-apollo-server-and-client-auth](https://github.com/zeit/next.js/tree/canary/examples/api-routes-apollo-server-and-client-auth) original example.
 My goal is to make it much easier and, at the same time, more production-like.
