@@ -1,56 +1,59 @@
 import {useQuery} from "@apollo/react-hooks"
+import {withApollo} from "apollo/client"
 import gql from "graphql-tag"
-import Link from "next/link"
+import Head from "next/head"
 import {useRouter} from "next/router"
-import {withApollo} from "../apollo/client"
-import {getErrorMessage} from "../lib"
+import {TopMenu, Loading, Error} from "components"
+import React from "react"
 
 let MeQuery = gql`
-  query MeQuery {
+  query MeIndex {
     me {
       id
       email
     }
   }`
 
-let Index = () => {
+function Page() {
   let router = useRouter()
+
   let {data, error, loading} = useQuery(MeQuery, {
     // fetchPolicy: "network-only"
   })
 
-  if (loading) {
-    return <div>Loading...</div>
-  }
-
   if (error) {
-    return <div>{getErrorMessage(error)}</div>
+    return <>
+      <Meta/>
+      <Error error={error}/>
+    </>
   }
 
-  if (!data) {
-    return null
+  if (loading) {
+    return <>
+      <Meta/>
+      <Loading/>
+    </>
   }
 
-  if (!data.me && typeof window != "undefined") {
-    router.push("/signin")
-  }
+  return <>
+    <Meta/>
 
-  if (data && data.me) {
-    return <div>
-      You're signed in as {data.me.email} goto{" "}
-      <Link href="/about">
-        <a>static</a>
-      </Link>{" "}
-      page. or{" "}
-      <Link href="/signout">
-        <a>signout</a>
-      </Link>
-    </div>
-  } else {
-    return <div>
-      Hi guest!
-    </div>
-  }
+    <TopMenu me={data.me}/>
+
+    <h1>Home</h1>
+
+    <>
+      <pre><code>
+        {JSON.stringify(data.me || {role: "guest"}, null, 2)}
+      </code></pre>
+    </>
+  </>
 }
 
-export default withApollo(Index)
+function Meta() {
+  return <Head>
+    <title>Home</title>
+  </Head>
+}
+
+export default withApollo(Page)

@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function Field(props) {
+export function Field(props) {
   return <div>
     <label
       id={[props.name, "label"].join("-")}

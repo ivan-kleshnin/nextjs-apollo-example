@@ -38,13 +38,13 @@ export let typeDefs = gql`
     account: Account!
   }
 
-  type Query {
+  extend type Query {
     account(id: ID!): Account!
     accounts: [Account]!
     me: Account
   }
 
-  type Mutation {
+  extend type Mutation {
     signUp(input: SignUpInput!): AuthPayload!
     signIn(input: SignInInput!): AuthPayload!
     signGithub(code: String!): AuthPayload
@@ -64,7 +64,7 @@ export let resolvers = {
       let {code} = args
 
       if (!code) {
-        throw Error(`invalid direct access to "/api/github/login" (no code)`)
+        throw Error(`no code provided`)
       }
 
       // Step 2: ask GitHub auth for `accessToken`
@@ -144,9 +144,14 @@ export let resolvers = {
 
     async signUp(_, args, {}) {
       let {input} = args
-      let account = makeAccount(input)
 
       let db = DB.read()
+      if (db.accounts.find(account => account.email == input.email)) {
+        throw new UserInputError("This email is already taken")
+      }
+
+      let account = makeAccount(input)
+
       DB.write({accounts: [...db.accounts, account]})
 
       return {account}
