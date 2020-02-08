@@ -1,18 +1,16 @@
-# NextJS with Apollo Stack
+# NextJS & Apollo Stack Example
 
-### Ultimate Example: SSR + Fullstack Auth + ...
-
-**Note**: this code is an evolution of [api-routes-apollo-server-and-client-auth](https://github.com/zeit/next.js/tree/canary/examples/api-routes-apollo-server-and-client-auth) original example.
+This code is an evolution of [api-routes-apollo-server-and-client-auth](https://github.com/zeit/next.js/tree/canary/examples/api-routes-apollo-server-and-client-auth) original demo.
 My goal is to make it much easier and, at the same time, more production-like.
 
 ### Steps Taken
 
-- [x] 1. Use more realistic folder/file structure
-- [x] 2. Use FS-based DB emulation as RAM-based don't play well with dev servers
-- [x] 3. Demonstrate GitHub (OAuth) authentication
-- [x] 4. Get rid of Full SSR, replacing it with [Partial SSR](https://paqmind.com/en/blog/ssr-is-not-the-future).
-- [ ] 5. Demonstrate proper error handling/logging (in process)
-- [ ] 6. Revisit security & performance aspects
+- [x] 1. Use more realistic folder/file structure.
+- [x] 2. Use FS-based DB emulation as RAM-based don't play well with dev servers.
+- [x] 3. Demonstrate GitHub (OAuth) authentication.
+- [x] 4. Replace Full SSR with [Partial SSR](https://paqmind.com/en/blog/ssr-is-not-the-future).
+- [ ] 5. Demonstrate proper error handling/logging (in process).
+- [ ] 6. Revisit security & performance aspects.
 
 ## How To Use
 
