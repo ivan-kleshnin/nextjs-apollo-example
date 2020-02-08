@@ -167,7 +167,7 @@ export let resolvers = {
         let token = JWT.sign(
           {id: account.id},
           process.env.JWT_SECRET,
-          {expiresIn: "5m"}, // "7d"} // 7 days
+          {expiresIn: "1m"}, // "7d"} // 7 days
         )
 
         res.setHeader(

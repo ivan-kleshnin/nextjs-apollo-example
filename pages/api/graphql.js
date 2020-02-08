@@ -18,20 +18,7 @@ let apolloServer = new ApolloServer({
         id = obj.id
       } catch (err) {
         console.error(err) // expired token, invalid token
-        // TODO how to handle expired token?
-        // remove cookie? In browser it's just "400 Error" a.t.m
-
-        // TODO this does not prevent from seeing "400 Error" (requires page reload)
-        // ctx.res.setHeader(
-        //   "Set-Cookie",
-        //   cookie.serialize("token", "", {
-        //     httpOnly: true,
-        //     maxAge: -1,
-        //     path: "/",
-        //     sameSite: "lax",
-        //     secure: process.env.NODE_ENV == "production",
-        //   })
-        // )
+        // TODO try apollo-link-error on the client
         throw new AuthenticationError("Authentication token is invalid, please log in")
       }
     }
