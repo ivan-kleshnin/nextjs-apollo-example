@@ -9,8 +9,8 @@ import fetch from "cross-fetch"
 let globalApolloClient = null
 
 export function withApollo(PageComponent, {ssr = true} = {}) {
-  let WithApollo = ({apolloClient, apolloState, ...pageProps}) => {
-    let client = apolloClient || initApolloClient(undefined, apolloState)
+  let WithApollo = ({apolloClient, ...pageProps}) => {
+    let client = apolloClient || initApolloClient()
     return <ApolloProvider client={client}>
       <PageComponent {...pageProps} />
     </ApolloProvider>
