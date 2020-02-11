@@ -2,25 +2,30 @@ import {useQuery, useMutation} from "@apollo/react-hooks"
 import {withApollo} from "apollo/client"
 import gql from "graphql-tag"
 import Head from "next/head"
+import Link from "next/link"
 import {useRouter} from "next/router"
 import React, {useState} from "react"
 import {Error, Field, Loading, TopMenu} from "components"
 import {getErrorMessage} from "lib"
 
+let postFields = "id title" // TODO fragments vs string interpolation in gql?
+
 let DataQuery = gql`
-  query {
+  query ($postId: ID!) {
     me {
       id
       email
     }
+    post(id: $postId) {
+      ${postFields}
+    }
   }`
 
-let SignUpMutation = gql`
-  mutation SignUp($email: String!, $password: String!) {
-    signUp(input: {email: $email, password: $password}) {
-      account {
-        id
-        email
+let UpdatePostMutation = gql`
+  mutation ($id: ID!, $input: UpdatePostInput!) {
+    updatePost(id: $id, input: $input) {
+      post {
+        ${postFields}
       }
     }
   }`
@@ -30,22 +35,32 @@ function Page() {
 
   let {data, error, loading} = useQuery(DataQuery, {
     ssr: false,
+    variables: {
+      postId: router.query.postId,
+    }
   })
 
-  let [signUp] = useMutation(SignUpMutation)
+  let [updatePost] = useMutation(UpdatePostMutation, {
+    // refetchQueries: [
+    //   {query: RefetchQuery},
+    // ],
+    // awaitRefetchQueries: true,
+  })
   let [alert, setAlert] = useState()
 
   async function handleSubmit(elements) {
     try {
-      let {data} = await signUp({
+      let {data} = await updatePost({
         variables: {
-          email: elements.email.value,
-          password: elements.password.value,
+          id: router.query.postId,
+          input: {
+            title: elements.title.value
+          },
         },
       })
-      // TODO can possibly do auto signin (or should?!)
-      // if (data.signUp.account) {
-      await router.push("/signin")
+      // TODO always throw or return `{errors}`-like objects?
+      // if (data.updatePost.post) {
+      await router.push("/posts")
       // }
     } catch (error) {
       setAlert(getErrorMessage(error))
@@ -66,25 +81,23 @@ function Page() {
     </>
   }
 
+  let {me, post} = data
+
   return <>
     <Meta/>
 
-    <TopMenu me={data.me}/>
+    <TopMenu me={me}/>
 
-    <h1>SignUp</h1>
+    <h1>Update Post</h1>
+
     <form onSubmit={(event) => { event.preventDefault(); handleSubmit(event.currentTarget.elements) }}>
       {alert && <p>{alert}</p>}
       <Field
-        caption="Email"
-        name="email"
+        caption="Title"
+        defaultValue={post.title}
+        name="title"
         required
-        type="email"
-      />
-      <Field
-        caption="Password"
-        name="password"
-        required
-        type="password"
+        type="text"
       />
       <button type="submit">Submit</button>
     </form>
@@ -93,7 +106,7 @@ function Page() {
 
 function Meta() {
   return <Head>
-    <title>SignUp</title>
+    <title>Update Post</title>
   </Head>
 }
 

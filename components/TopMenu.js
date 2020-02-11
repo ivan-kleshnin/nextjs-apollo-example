@@ -7,6 +7,8 @@ export function TopMenu({me}) {
     {" "}
     <Link href="/about"><a>About</a></Link>
     {" "}
+    <Link href="/posts"><a>Blog</a></Link>
+    {" "}
     <AccountSubMenu me={me}/>
     <hr/>
   </>

@@ -56,9 +56,9 @@ function Page() {
         },
       })
       await apollo.resetStore() // Has to be after `signIn`, otherwise `me {..}` is immediately fired
-      if (data.signIn.account) {
-        await router.push("/")
-      }
+      // if (data.signIn.account) {
+      await router.push("/")
+      // }
     } catch (error) {
       setAlert(getErrorMessage(error))
     }

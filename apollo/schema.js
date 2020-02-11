@@ -1,6 +1,7 @@
 import gql from "graphql-tag"
 import {makeExecutableSchema} from "graphql-tools"
 import * as account from "./account"
+import * as post from "./post"
 
 let typeDefs = gql`
   type Query {
@@ -18,6 +19,6 @@ let resolvers = {
 }
 
 export let schema = makeExecutableSchema({
-  typeDefs: [typeDefs, account.typeDefs],
-  resolvers: [resolvers, account.resolvers],
+  typeDefs: [typeDefs, account.typeDefs, post.typeDefs],
+  resolvers: [resolvers, account.resolvers, post.resolvers],
 })

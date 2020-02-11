@@ -4,7 +4,10 @@ export function read() {
   if (FS.existsSync("./db.json")) {
     return JSON.parse(FS.readFileSync("./db.json", "utf-8"))
   } else {
-    return {accounts: []}
+    return {
+      accounts: [],
+      posts: [],
+    }
   }
 }
 
