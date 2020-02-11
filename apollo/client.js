@@ -29,10 +29,13 @@ export function withApollo(PageComponent, {ssr = true} = {}) {
   // }
 
   if (PageComponent.getInitialProps) {
-    WithApollo.getInitialProps = PageComponent.getInitialProps
+    WithApollo.getInitialProps = async function (ctx) {
+      ctx.apolloClient = initApolloClient(ctx)
+      return PageComponent.getInitialProps(ctx)
+    }
   } else {
     WithApollo.getInitialProps = function () {
-      return {}
+      return {noop: null}
     }
   }
 

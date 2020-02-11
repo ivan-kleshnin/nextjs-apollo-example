@@ -38,9 +38,9 @@ function Page(props) {
     </>
   }
 
-  if (loading) {
+  if (loading) { // <=> typeof window == "undefined"
     return <>
-      <Meta/>
+      <Meta post={props.post}/>
       <Loading/>
     </>
   }
@@ -48,7 +48,7 @@ function Page(props) {
   let {me, post} = data
 
   return <>
-    <Meta/>
+    <Meta post={data.post}/>
 
     <TopMenu me={me}/>
 
@@ -66,10 +66,29 @@ function Page(props) {
   </>
 }
 
-function Meta() {
+function Meta({post}) {
   return <Head>
-    <title>View Post</title>
+    <title>View Post {post ? post.title : "..."}</title>
   </Head>
+}
+
+Page.getInitialProps = async function ({apolloClient, query}) {
+  if (typeof window == "undefined") {
+    let {data: {post}} = await apolloClient.query({
+      query: gql`
+        query ($id: ID!) {
+          post(id: $id) {
+            id
+            title
+          }
+        }`,
+      variables: {
+        id: query.postId,
+      }
+    })
+    return {post}
+  }
+  return {post: null}
 }
 
 export default withApollo(Page)
