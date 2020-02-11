@@ -112,7 +112,7 @@ function createApolloClient(ctx = {}) {
   let defaultOptions = {
     query: {
       fetchPolicy: ssr ? "no-cache" : "cache-first",
-      errorPolicy: "all",
+      errorPolicy: "none", // TODO compare "none" and "all" effects
     }
   }
 
