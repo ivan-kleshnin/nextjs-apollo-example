@@ -1,21 +1,31 @@
+import PT from "prop-types"
 import React from "react"
 
 export function Field(props) {
+  let {autoComplete, caption, name, required, type} = props
+
   return <div>
-    <label
-      id={[props.name, "label"].join("-")}
-      htmlFor={[props.name, "input"].join("-")}
-    >
-      {props.label}{" "}
-      {props.required ? <span title="Required">*</span> : undefined}
+    <label>
+      {caption} {required ? <span title="Required">*</span> : undefined}
+      <input
+        autoComplete={autoComplete}
+        name={name}
+        required={required}
+        type={type}
+      />
     </label>
-    <br />
-    <input
-      autoComplete={props.autoComplete}
-      id={[props.name, "input"].join("-")}
-      name={props.name}
-      required={props.required}
-      type={props.type}
-    />
   </div>
+}
+
+Field.propTypes = {
+  autoComplete: PT.oneOf(["on", "off"]),
+  caption: PT.string.isRequired,
+  name: PT.string.isRequired,
+  required: PT.bool,
+  type: PT.string.isRequired,
+}
+
+Field.defaultProps = {
+  autoComplete: "off",
+  required: false,
 }

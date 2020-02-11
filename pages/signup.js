@@ -75,18 +75,16 @@ function Page() {
     <form onSubmit={(event) => { event.preventDefault(); handleSubmit(event.currentTarget.elements) }}>
       {alert && <p>{alert}</p>}
       <Field
+        caption="Email"
         name="email"
-        type="email"
-        autoComplete="Email"
-        label="Email"
         required
+        type="email"
       />
       <Field
+        caption="Password"
         name="password"
-        type="password"
-        autoComplete="Password"
-        label="Password"
         required
+        type="password"
       />
       <button type="submit">Submit</button>
     </form>
