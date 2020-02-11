@@ -28,6 +28,14 @@ export function withApollo(PageComponent, {ssr = true} = {}) {
   //   WithApollo.displayName = `withApollo(${displayName})`
   // }
 
+  if (PageComponent.getInitialProps) {
+    WithApollo.getInitialProps = PageComponent.getInitialProps
+  } else {
+    WithApollo.getInitialProps = function () {
+      return {}
+    }
+  }
+
   // if (ssr || PageComponent.getInitialProps) {
   //   WithApollo.getInitialProps = async ctx => {
   //     let {AppTree} = ctx
