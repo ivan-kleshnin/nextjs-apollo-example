@@ -118,12 +118,14 @@ function Page() {
       {alert && <p>{alert}</p>}
       <Field
         caption="Email"
+        defaultValue=""
         name="email"
         required
         type="email"
       />
       <Field
         caption="Password"
+        defaultValue=""
         name="password"
         required
         type="password"

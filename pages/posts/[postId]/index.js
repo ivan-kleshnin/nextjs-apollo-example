@@ -33,7 +33,7 @@ function Page(props) {
 
   if (error) {
     return <>
-      <Meta/>
+      <Meta post={props.post}/>
       <Error error={error}/>
     </>
   }
