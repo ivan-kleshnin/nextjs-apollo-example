@@ -3,11 +3,11 @@ import {withApollo} from "apollo/client"
 import gql from "graphql-tag"
 import Head from "next/head"
 import {useRouter} from "next/router"
-import {TopMenu, Loading, Error} from "components"
 import React from "react"
+import {Error, Loading, TopMenu} from "components"
 
-let MeQuery = gql`
-  query MeAbout {
+let DataQuery = gql`
+  query {
     me {
       id
       email
@@ -17,8 +17,8 @@ let MeQuery = gql`
 function Page() {
   let router = useRouter()
 
-  let {data, error, loading} = useQuery(MeQuery, {
-    // fetchPolicy: "network-only"
+  let {data, error, loading} = useQuery(DataQuery, {
+    ssr: false,
   })
 
   if (error) {

@@ -1,8 +1,8 @@
 import gql from "graphql-tag"
 import {makeExecutableSchema} from "graphql-tools"
-import {typeDefs as accountTypedefs, resolvers as accountResolvers} from "./account"
+import * as account from "./account"
 
-let typedefs = gql`
+let typeDefs = gql`
   type Query {
     hello: String!
   }
@@ -18,6 +18,6 @@ let resolvers = {
 }
 
 export let schema = makeExecutableSchema({
-  typeDefs: [typedefs, accountTypedefs],
-  resolvers: [resolvers, accountResolvers],
+  typeDefs: [typeDefs, account.typeDefs],
+  resolvers: [resolvers, account.resolvers],
 })

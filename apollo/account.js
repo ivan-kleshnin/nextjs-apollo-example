@@ -53,16 +53,14 @@ export let typeDefs = gql`
 
 export let resolvers = {
   Query: {
-    async me(_, args, {visitor}) {
+    async me(_, {}, {visitor}) {
       return visitor
     },
   },
 
   Mutation: {
-    async signGithub(_, args, {req, res}) {
+    async signGithub(_, {code}, {req, res}) {
       // Step 1: get code (the request to GitHub occurs in browser)
-      let {code} = args
-
       if (!code) {
         throw Error(`no code provided`)
       }
@@ -142,9 +140,7 @@ export let resolvers = {
       return {account}
     },
 
-    async signUp(_, args, {}) {
-      let {input} = args
-
+    async signUp(_, {input}, {}) {
       let db = DB.read()
       if (db.accounts.find(account => account.email == input.email)) {
         throw new UserInputError("This email is already taken")
@@ -157,13 +153,11 @@ export let resolvers = {
       return {account}
     },
 
-    async signIn(_, args, {res}) {
-      let {input} = args
-
+    async signIn(_, {input}, {res}) {
       let db = DB.read()
       let account = db.accounts.find(account => account.email == input.email)
 
-      if (account && validPassword(account, args.input.password)) {
+      if (account && validPassword(account, input.password)) {
         let token = JWT.sign(
           {id: account.id},
           process.env.JWT_SECRET,
@@ -187,7 +181,7 @@ export let resolvers = {
       throw new UserInputError("Invalid email and password combination")
     },
 
-    async signOut(_, args, {res}) {
+    async signOut(_, {}, {res}) {
       res.setHeader(
         "Set-Cookie",
         cookie.serialize("token", "", {

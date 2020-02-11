@@ -4,11 +4,11 @@ import gql from "graphql-tag"
 import Head from "next/head"
 import {useRouter} from "next/router"
 import React, {useEffect, useState} from "react"
-import {TopMenu, Loading, Field} from "components"
+import {Error, Field, Loading, TopMenu} from "components"
 import {getErrorMessage} from "lib"
 
-let MeQuery = gql`
-  query Me {
+let DataQuery = gql`
+  query {
     me {
       id
       email
@@ -38,8 +38,8 @@ let SignInMutation = gql`
 function Page() {
   let router = useRouter()
 
-  let {data, error, loading} = useQuery(MeQuery, {
-    // fetchPolicy: "network-only"
+  let {data, error, loading} = useQuery(DataQuery, {
+    ssr: false,
   })
 
   let apollo = useApolloClient()
@@ -55,7 +55,7 @@ function Page() {
           password: elements.password.value,
         },
       })
-      await apollo.resetStore() // Has to be after `signIn`, otherwise MeQuery is immediately fired
+      await apollo.resetStore() // Has to be after `signIn`, otherwise `me {..}` is immediately fired
       if (data.signIn.account) {
         await router.push("/")
       }
@@ -130,7 +130,7 @@ function Page() {
         label="Password"
         required
       />
-      <button type="submit">SignIn</button>
+      <button type="submit">Submit</button>
     </form>
     {/*<hr/>
     <h2>With GitHub</h2>
