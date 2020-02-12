@@ -1,4 +1,4 @@
-import {useMutation, useApolloClient} from "@apollo/react-hooks"
+import {useApolloClient, useMutation} from "@apollo/client"
 import {withApollo} from "apollo/client"
 import gql from "graphql-tag"
 import Head from "next/head"

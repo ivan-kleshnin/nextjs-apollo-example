@@ -4,7 +4,7 @@ import gql from "graphql-tag"
 import JWT from "jsonwebtoken" // TODO too big, replace
 import UUID from "uuid/v4"
 import * as DB from "../db"
-import {fetchJSON} from "../lib"
+// import {fetchJSON} from "../lib"
 
 function makePost(data) {
   return {
