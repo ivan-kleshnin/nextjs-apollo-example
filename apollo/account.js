@@ -1,4 +1,4 @@
-import {gql} from "@apollo/client"
+import gql from "graphql-tag"
 import {UserInputError} from "apollo-server-micro"
 import cookie from "cookie"
 import JWT from "jsonwebtoken" // TODO too big, replace

@@ -1,4 +1,4 @@
-import {gql} from "@apollo/client"
+import gql from "graphql-tag"
 import {makeExecutableSchema} from "graphql-tools"
 import * as account from "./account"
 import * as post from "./post"
