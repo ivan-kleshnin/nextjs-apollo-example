@@ -1,6 +1,5 @@
-import {useQuery, useMutation} from "@apollo/client"
+import {gql, useQuery, useMutation} from "@apollo/client"
 import {withApollo} from "apollo/client"
-import gql from "graphql-tag"
 import Head from "next/head"
 import {useRouter} from "next/router"
 import React, {useState} from "react"
