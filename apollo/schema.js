@@ -1,5 +1,5 @@
 import {gql} from "@apollo/client"
-import {makeExecutableSchema} from "graphql-tools"
+import {makeExecutableSchema} from "apollo-server-micro"
 import * as account from "./account"
 import * as post from "./post"
 

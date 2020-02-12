@@ -1,7 +1,7 @@
-import React from "react"
-// import Head from "next/head"
 import {ApolloClient, ApolloProvider, InMemoryCache, HttpLink} from "@apollo/client"
 import fetch from "cross-fetch"
+// import Head from "next/head"
+import React from "react"
 
 let globalApolloClient = null
 
